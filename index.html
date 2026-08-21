@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRCTC AUTOMATION — Journey Configurator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ultra&family=Space+Mono:wght@400;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bunting" aria-hidden="true"></div>
+
+<div class="topbar">
+  <a class="topbar__btn topbar__btn--bot" id="downloadBotBtn" href="app.py" download="app.py">Download Bot</a>
+  <a class="topbar__btn topbar__btn--github" href="https://github.com/archis-kodes/IRCTC-automation" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+  </a>
+</div>
+
+<header class="hero">
+  <div class="hero__ticket-holes hero__ticket-holes--left" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <p class="eyebrow">RESERVATION CHART · AUTOMATED</p>
+    <h1 class="board-title">
+      <span class="board-title__flap">I</span><span class="board-title__flap">R</span><span class="board-title__flap">C</span><span class="board-title__flap">T</span><span class="board-title__flap">C</span>
+      <span class="board-title__gap"></span>
+      <span class="board-title__flap">A</span><span class="board-title__flap">U</span><span class="board-title__flap">T</span><span class="board-title__flap">O</span><span class="board-title__flap">M</span><span class="board-title__flap">A</span><span class="board-title__flap">T</span><span class="board-title__flap">I</span><span class="board-title__flap">O</span><span class="board-title__flap">N</span>
+    </h1>
+    <p class="hero__sub">Fill every berth on this form and we'll punch a ticket‑ready JSON for your booking script.</p>
+  </div>
+</header>
+
+<!-- SIGNATURE ELEMENT: the journey rail progress tracker -->
+<nav class="rail" aria-label="Form progress">
+  <div class="rail__rail-wrap">
+    <div class="rail__track" id="railTrack">
+      <div class="rail__fill" id="railFill"></div>
+    <div class="rail__train" id="railTrain" aria-hidden="true">
+      <div class="rail__wagon rail__wagon--coach">
+        <svg viewBox="0 0 50 42" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="6" width="44" height="4" rx="2" fill="#9C2B2B"/>
+          <rect x="2" y="10" width="46" height="20" rx="5" fill="var(--coach-red)"/>
+          <rect x="8" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="21" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="34" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="0" y="19" width="4" height="4" fill="var(--brass)"/>
+          <rect x="46" y="19" width="4" height="4" fill="var(--brass)"/>
+          <circle cx="13" cy="34" r="5" fill="var(--charcoal)"/>
+          <circle cx="37" cy="34" r="5" fill="var(--charcoal)"/>
+          <circle cx="13" cy="34" r="1.8" fill="var(--parchment-dark)"/>
+          <circle cx="37" cy="34" r="1.8" fill="var(--parchment-dark)"/>
+        </svg>
+      </div>-
+      <div class="rail__wagon rail__wagon--coach">
+        <svg viewBox="0 0 50 42" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="6" width="44" height="4" rx="2" fill="#9C2B2B"/>
+          <rect x="2" y="10" width="46" height="20" rx="5" fill="var(--coach-red)"/>
+          <rect x="8" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="21" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="34" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="0" y="19" width="4" height="4" fill="var(--brass)"/>
+          <rect x="46" y="19" width="4" height="4" fill="var(--brass)"/>
+          <circle cx="13" cy="34" r="5" fill="var(--charcoal)"/>
+          <circle cx="37" cy="34" r="5" fill="var(--charcoal)"/>
+          <circle cx="13" cy="34" r="1.8" fill="var(--parchment-dark)"/>
+          <circle cx="37" cy="34" r="1.8" fill="var(--parchment-dark)"/>
+        </svg>
+      </div>-
+      <div class="rail__wagon rail__wagon--coach">
+        <svg viewBox="0 0 50 42" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="6" width="44" height="4" rx="2" fill="#9C2B2B"/>
+          <rect x="2" y="10" width="46" height="20" rx="5" fill="var(--coach-red)"/>
+          <rect x="8" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="21" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="34" y="15" width="7" height="8" rx="1.5" fill="var(--parchment)"/>
+          <rect x="0" y="19" width="4" height="4" fill="var(--brass)"/>
+          <rect x="46" y="19" width="4" height="4" fill="var(--brass)"/>
+          <circle cx="13" cy="34" r="5" fill="var(--charcoal)"/>
+          <circle cx="37" cy="34" r="5" fill="var(--charcoal)"/>
+          <circle cx="13" cy="34" r="1.8" fill="var(--parchment-dark)"/>
+          <circle cx="37" cy="34" r="1.8" fill="var(--parchment-dark)"/>
+        </svg>
+      </div>-
+      <div class="rail__wagon rail__wagon--engine">
+        <svg viewBox="0 0 70 42" xmlns="http://www.w3.org/2000/svg">
+          <rect x="14" y="-4" width="7" height="11" rx="1.5" fill="var(--charcoal)"/>
+          <rect x="2" y="4" width="28" height="16" rx="3" fill="var(--saffron)"/>
+          <rect x="6" y="7" width="15" height="7" rx="1.5" fill="var(--indigo-night-1)"/>
+          <rect x="2" y="16" width="50" height="12" rx="4" fill="var(--saffron)"/>
+          <path d="M52 16 H68 L64 30 H52 Z" fill="var(--saffron-dark)"/>
+          <circle cx="65" cy="21" r="2" fill="var(--parchment)"/>
+          <rect x="0" y="20" width="4" height="5" fill="var(--brass)"/>
+          <circle cx="14" cy="35" r="6" fill="var(--charcoal)"/>
+          <circle cx="34" cy="35" r="6" fill="var(--charcoal)"/>
+          <circle cx="55" cy="33" r="5" fill="var(--charcoal)"/>
+          <circle cx="14" cy="35" r="2.2" fill="var(--parchment)"/>
+          <circle cx="34" cy="35" r="2.2" fill="var(--parchment)"/>
+          <circle cx="55" cy="33" r="2" fill="var(--parchment)"/>
+        </svg>
+      </div>
+    </div>
+    </div>
+    <ol class="rail__stations" id="railStations">
+      <li class="rail__station" data-station="login"><span class="rail__dot"></span><span class="rail__label">Login</span></li>
+      <li class="rail__station" data-station="route"><span class="rail__dot"></span><span class="rail__label">Route</span></li>
+      <li class="rail__station" data-station="schedule"><span class="rail__dot"></span><span class="rail__label">Schedule</span></li>
+      <li class="rail__station" data-station="class"><span class="rail__dot"></span><span class="rail__label">Class</span></li>
+      <li class="rail__station" data-station="passengers"><span class="rail__dot"></span><span class="rail__label">Passengers</span></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="platform">
+  <form id="journeyForm" novalidate>
+
+    <!-- STOP 1 : LOGIN -->
+    <section class="ticket" id="section-login" data-section="login">
+      <div class="ticket__stub">
+        <span class="ticket__stop-no">STOP 1</span>
+        <span class="ticket__stamp" data-stamp="login">●</span>
+      </div>
+      <div class="ticket__body">
+        <h2 class="ticket__title">Board with your credentials</h2>
+        <p class="ticket__hint">Your IRCTC login. Kept on this device only — nothing is sent anywhere.</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="id">User ID</label>
+            <input type="text" id="id" name="id" placeholder="Username" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="field__password">
+              <input type="password" id="password" name="password" placeholder="••••••••••" autocomplete="current-password" required>
+              <button type="button" class="field__eye" id="togglePassword" aria-label="Show password">👁</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STOP 2 : ROUTE -->
+    <section class="ticket" id="section-route" data-section="route">
+      <div class="ticket__stub">
+        <span class="ticket__stop-no">STOP 2</span>
+        <span class="ticket__stamp" data-stamp="route">●</span>
+      </div>
+      <div class="ticket__body">
+        <h2 class="ticket__title">Chart the route</h2>
+        <p class="ticket__hint">Station codes, all caps — like <span class="mono">SDAH</span> or <span class="mono">NJP</span>.</p>
+        <div class="route-row">
+          <div class="field">
+            <label for="source">Source</label>
+            <input type="text" id="source" name="source" placeholder="SDAH" maxlength="5" required>
+          </div>
+          <button type="button" class="route-swap" id="swapStations" aria-label="Swap source and destination">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 12h13m0 0-4-4m4 4-4 4M20 12H7m0 0 4 4m-4-4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="field">
+            <label for="destination">Destination</label>
+            <input type="text" id="destination" name="destination" placeholder="NJP" maxlength="5" required>
+          </div>
+        </div>
+        <div class="track-strip" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- STOP 3 : SCHEDULE -->
+    <section class="ticket" id="section-schedule" data-section="schedule">
+      <div class="ticket__stub">
+        <span class="ticket__stop-no">STOP 3</span>
+        <span class="ticket__stamp" data-stamp="schedule">●</span>
+      </div>
+      <div class="ticket__body">
+        <h2 class="ticket__title">Fix the date &amp; train</h2>
+        <p class="ticket__hint">Date is stored as <span class="mono">DD/MM/YYYY</span>, same as the reservation chart.</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="date">Journey date</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <div class="field">
+            <label for="trainNumber">Train number</label>
+            <input type="text" id="trainNumber" name="trainNumber" placeholder="12343" inputmode="numeric" maxlength="5" required>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STOP 4 : CLASS -->
+    <section class="ticket" id="section-class" data-section="class">
+      <div class="ticket__stub">
+        <span class="ticket__stop-no">STOP 4</span>
+        <span class="ticket__stamp" data-stamp="class">●</span>
+      </div>
+      <div class="ticket__body">
+        <h2 class="ticket__title">Set the coach types</h2>
+        <p class="ticket__hint">Your own numbering — say how many coach types this train has, then which one you're booking.</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="total_coach_types">Total coach types</label>
+            <input type="text" id="total_coach_types" name="total_coach_types" placeholder="4" inputmode="numeric" maxlength="2" required>
+          </div>
+          <div class="field">
+            <label for="coach_type">Selected coach type</label>
+            <input type="text" id="coach_type" name="coach_type" placeholder="1" inputmode="numeric" maxlength="2" required>
+          </div>
+        </div>
+        <p class="field__note" id="coachNote"></p>
+      </div>
+    </section>
+
+    <!-- STOP 5 : PASSENGERS -->
+    <section class="ticket" id="section-passengers" data-section="passengers">
+      <div class="ticket__stub">
+        <span class="ticket__stop-no">STOP 5</span>
+        <span class="ticket__stamp" data-stamp="passengers">●</span>
+      </div>
+      <div class="ticket__body">
+        <h2 class="ticket__title">Order the passenger berths</h2>
+        <p class="ticket__hint">Drag the tags into boarding order — left to right becomes <span class="mono">passenger_order</span>.</p>
+        <ul class="pax-list" id="paxList">
+          <li class="pax-chip" draggable="true" data-value="1"><span class="pax-chip__pos">1</span>Passenger 1</li>
+          <li class="pax-chip" draggable="true" data-value="2"><span class="pax-chip__pos">2</span>Passenger 2</li>
+          <li class="pax-chip" draggable="true" data-value="3"><span class="pax-chip__pos">3</span>Passenger 3</li>
+          <li class="pax-chip" draggable="true" data-value="4"><span class="pax-chip__pos">4</span>Passenger 4</li>
+          <li class="pax-chip" draggable="true" data-value="5"><span class="pax-chip__pos">5</span>Passenger 5</li>
+          <li class="pax-chip" draggable="true" data-value="6"><span class="pax-chip__pos">6</span>Passenger 6</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- DEPARTURE / DOWNLOAD -->
+    <section class="departure">
+      <div class="departure__signal" id="departureSignal" aria-hidden="true"></div>
+      <div class="departure__text">
+        <p class="departure__status" id="departureStatus">Signal red — complete every stop to clear departure.</p>
+        <p class="departure__filename mono" id="departureFilename"></p>
+      </div>
+      <button type="button" class="departure__btn" id="downloadBtn" disabled>
+        <span class="departure__btn-icon" aria-hidden="true">🔒</span>
+        <span class="departure__btn-text">Download ticket.json</span>
+      </button>
+    </section>
+
+    <p class="live-region" id="liveRegion" aria-live="polite"></p>
+  </form>
+</main>
+
+<footer class="footer">
+  <p>Everything here runs in your browser. Nothing you type ever leaves this page.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
