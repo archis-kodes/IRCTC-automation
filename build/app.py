@@ -24,15 +24,15 @@ REQUIRED_KEYS = [
 
 INSTRUCTIONS = (
     "HOW TO USE\n"
-    "-----------\n"
+    "------------------------------------------------------------------------------------------------------------------------------------------\n"
     "1. Click 'Select JSON File' and choose your booking config file.\n"
     "2. Click 'Start Automation' to arm the hotkeys.\n"
     "3. Switch to your browser window (e.g. IRCTC) and press:\n\n"
-    "     1     --->     Login\n"
-    "     2     --->     Search Train\n"
-    "     3     --->     Select Train\n"
-    "     4     --->     Fill Passenger Information\n"
-    "     0     --->     EMERGENCY STOP (quits immediately)\n\n"
+    "     1        --->     Login\n"
+    "     2        --->     Search Train\n"
+    "     3        --->     Select Train\n"
+    "     Alt + 4  --->     Fill Passenger Information\n"
+    "     0        --->     EMERGENCY STOP (quits immediately)\n\n"
     "These hotkeys work globally, so the app window does not need\n"
     "to be focused once automation has been started.\n"
 )
@@ -127,15 +127,16 @@ def selectTrain():
 def fillInformation():
     import time
     passenger_order = config["passenger_order"]
-    count = 0
-    for passenger in passenger_order:
-        for i in range(passenger - count):
+    for passenger in range(len(passenger_order)):
+        for i in range(passenger_order[passenger]):
             gui.press('down')
         gui.press('enter')
         for i in range(5):
             gui.press('tab')
         gui.press('enter')
-        count += 1
+        for i in range(len(passenger_order)):
+            if passenger_order[i]>passenger_order[passenger]:
+                passenger_order[i] -= 1
         time.sleep(0.3)
     print("Passenger Information filled")
     for i in range(6):
@@ -160,7 +161,7 @@ class App(ctk.CTk):
         super().__init__()
 
         self.title("IRCTC Automation")
-        self.geometry("520x480")
+        self.geometry("520x520")
         self.resizable(False, False)
 
         self.json_path = None
@@ -190,7 +191,7 @@ class App(ctk.CTk):
         self.file_label.pack(pady=(0, 10))
 
         # Instructions box
-        self.instructions_box = ctk.CTkTextbox(self, width=460, height=230)
+        self.instructions_box = ctk.CTkTextbox(self, width=460, height=245)
         self.instructions_box.insert("1.0", INSTRUCTIONS)
         self.instructions_box.configure(state="disabled")
         self.instructions_box.pack(pady=10)
@@ -248,16 +249,16 @@ class App(ctk.CTk):
 
         def register():
             keyboard.add_hotkey("0", lambda: os._exit(0))
-            keyboard.add_hotkey("1", lambda: login())
-            keyboard.add_hotkey("2", lambda: searchTrain())
-            keyboard.add_hotkey("3", lambda: selectTrain())
-            keyboard.add_hotkey("4", lambda: fillInformation())
+            keyboard.add_hotkey("1", login)
+            keyboard.add_hotkey("2", searchTrain)
+            keyboard.add_hotkey("3", selectTrain)
+            keyboard.add_hotkey("alt+4", fillInformation)
 
         register()
         hotkeys_registered = True
 
         self.status_label.configure(
-            text="Status: ARMED — press 1/2/3/4 in your browser, 0 to stop",
+            text="Status: ARMED — press 1/2/3/Alt+4 in your browser, 0 to stop",
             text_color="lightgreen"
         )
         self.start_btn.configure(state="disabled", text="Automation Running")

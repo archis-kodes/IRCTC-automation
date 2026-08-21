@@ -3,15 +3,15 @@ import keyboard
 import time
 import os
 
-id = "arcmm2005"
-password = "Amffskmm005"
+id = "dummy"
+password = "dummy"
 source = "SDAH"
 destination = "NJP"
 date = "18/09/2026"
 trainNumber = "12343"
 coach_type = 1
 total_coach_types = 4
-passenger_order = [1, 2, 3, 4, 5, 6]
+passenger_order = [5, 6, 3, 1, 4, 2]
 
 # Helper
 def typeword(text):
@@ -81,15 +81,19 @@ def selectTrain(trainNumber, coach_type):
     print("Train Selected")
 
 def fillInformation(passenger_order):
-    count = 0
-    for passenger in passenger_order:
-        for i in range(passenger-count):
+    for i in range(len(passenger_order)):
+        for j in range(passenger_order[i]):
             gui.press('down')
         gui.press('enter')
-        for i in range(5):
+
+        for j in range(5):
             gui.press('tab')
+
+        for j in range(len(passenger_order)):
+            if passenger_order[j] > passenger_order[i]:
+                passenger_order[j] -= 1
         gui.press('enter')
-        count+=1
+
         time.sleep(0.3)
     print("Passenger Information filled")
     for i in range(6):
@@ -109,7 +113,7 @@ keyboard.add_hotkey("0", lambda: os._exit(0))
 keyboard.add_hotkey("1", lambda: login(id, password))
 keyboard.add_hotkey("2", lambda: searchTrain(source, destination, date))
 keyboard.add_hotkey("3", lambda: selectTrain(trainNumber, coach_type))
-keyboard.add_hotkey("4", lambda: fillInformation(passenger_order))
+keyboard.add_hotkey("alt+4", lambda: fillInformation(passenger_order))
 
 
 print("\n=============================")
