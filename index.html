@@ -220,15 +220,33 @@
       </div>
       <div class="ticket__body">
         <h2 class="ticket__title">Order the passenger berths</h2>
-        <p class="ticket__hint">Drag the tags into boarding order — left to right becomes <span class="mono">passenger_order</span>.</p>
-        <ul class="pax-list" id="paxList">
-          <li class="pax-chip" draggable="true" data-value="1"><span class="pax-chip__pos">1</span>Passenger 1</li>
-          <li class="pax-chip" draggable="true" data-value="2"><span class="pax-chip__pos">2</span>Passenger 2</li>
-          <li class="pax-chip" draggable="true" data-value="3"><span class="pax-chip__pos">3</span>Passenger 3</li>
-          <li class="pax-chip" draggable="true" data-value="4"><span class="pax-chip__pos">4</span>Passenger 4</li>
-          <li class="pax-chip" draggable="true" data-value="5"><span class="pax-chip__pos">5</span>Passenger 5</li>
-          <li class="pax-chip" draggable="true" data-value="6"><span class="pax-chip__pos">6</span>Passenger 6</li>
-        </ul>
+        <p class="ticket__hint">Write each passenger's priority number, in order. Box 2 unlocks once box 1 is filled, and so on — up to 6 passengers, minimum 1. Becomes <span class="mono">passenger_order</span>.</p>
+        <div class="pax-list" id="paxList">
+          <div class="pax-box" data-index="1">
+            <span class="pax-box__pos">1</span>
+            <input type="text" id="pax_1" name="pax_1" class="pax-box__input" inputmode="numeric" placeholder="#" maxlength="2" autocomplete="off">
+          </div>
+          <div class="pax-box is-locked" data-index="2">
+            <span class="pax-box__pos">2</span>
+            <input type="text" id="pax_2" name="pax_2" class="pax-box__input" inputmode="numeric" placeholder="#" maxlength="2" autocomplete="off" disabled>
+          </div>
+          <div class="pax-box is-locked" data-index="3">
+            <span class="pax-box__pos">3</span>
+            <input type="text" id="pax_3" name="pax_3" class="pax-box__input" inputmode="numeric" placeholder="#" maxlength="2" autocomplete="off" disabled>
+          </div>
+          <div class="pax-box is-locked" data-index="4">
+            <span class="pax-box__pos">4</span>
+            <input type="text" id="pax_4" name="pax_4" class="pax-box__input" inputmode="numeric" placeholder="#" maxlength="2" autocomplete="off" disabled>
+          </div>
+          <div class="pax-box is-locked" data-index="5">
+            <span class="pax-box__pos">5</span>
+            <input type="text" id="pax_5" name="pax_5" class="pax-box__input" inputmode="numeric" placeholder="#" maxlength="2" autocomplete="off" disabled>
+          </div>
+          <div class="pax-box is-locked" data-index="6">
+            <span class="pax-box__pos">6</span>
+            <input type="text" id="pax_6" name="pax_6" class="pax-box__input" inputmode="numeric" placeholder="#" maxlength="2" autocomplete="off" disabled>
+          </div>
+        </div>
       </div>
     </section>
 

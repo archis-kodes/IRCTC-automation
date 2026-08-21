@@ -14,6 +14,7 @@
     coachType: document.getElementById("coach_type"),
     coachNote: document.getElementById("coachNote"),
     paxList: document.getElementById("paxList"),
+    paxInputs: [1, 2, 3, 4, 5, 6].map((n) => document.getElementById(`pax_${n}`)),
     railTrack: document.getElementById("railTrack"),
     railFill: document.getElementById("railFill"),
     railTrain: document.getElementById("railTrain"),
@@ -77,33 +78,46 @@
   });
 
   /* ----------------------------------------------------------
-     Passenger drag-to-reorder
+     Passenger priority boxes — type-to-unlock-next
+     Box 1 starts open. Each box unlocks the next one only once
+     it holds a number. Clearing a box re-locks (and clears)
+     every box that comes after it, so entries always stay
+     contiguous from box 1.
      ---------------------------------------------------------- */
-  let dragEl = null;
-
-  function refreshPaxPositions() {
-    [...els.paxList.children].forEach((chip, i) => {
-      chip.querySelector(".pax-chip__pos").textContent = String(i + 1);
-    });
+  function paxBoxFor(input) {
+    return input.closest(".pax-box");
   }
 
-  [...els.paxList.children].forEach((chip) => {
-    chip.addEventListener("dragstart", () => {
-      dragEl = chip;
-      chip.classList.add("is-dragging");
-    });
-    chip.addEventListener("dragend", () => {
-      chip.classList.remove("is-dragging");
-      dragEl = null;
-      refreshPaxPositions();
+  function lockPaxFrom(startIndex) {
+    // startIndex is 0-based; locks boxes [startIndex..5]
+    for (let i = startIndex; i < els.paxInputs.length; i++) {
+      const input = els.paxInputs[i];
+      input.value = "";
+      input.disabled = true;
+      input.classList.remove("is-valid", "is-invalid");
+      paxBoxFor(input).classList.add("is-locked");
+    }
+  }
+
+  function unlockPax(index) {
+    // index is 0-based
+    if (index >= els.paxInputs.length) return;
+    const input = els.paxInputs[index];
+    input.disabled = false;
+    paxBoxFor(input).classList.remove("is-locked");
+  }
+
+  els.paxInputs.forEach((input, i) => {
+    input.addEventListener("input", () => {
+      const cleaned = input.value.replace(/[^0-9]/g, "").slice(0, 2);
+      if (input.value !== cleaned) input.value = cleaned;
+
+      if (cleaned.length > 0) {
+        unlockPax(i + 1);
+      } else {
+        lockPaxFrom(i + 1);
+      }
       validateAll();
-    });
-    chip.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      if (!dragEl || dragEl === chip) return;
-      const rect = chip.getBoundingClientRect();
-      const before = e.clientX < rect.left + rect.width / 2;
-      els.paxList.insertBefore(dragEl, before ? chip : chip.nextSibling);
     });
   });
 
@@ -131,7 +145,9 @@
     const chosenValid = Number.isInteger(chosen) && chosen >= 1;
     const classValid = totalValid && chosenValid && chosen <= total;
 
-    const paxValid = els.paxList.children.length === 6;
+    const filledPax = els.paxInputs.filter((input) => !input.disabled && input.value.trim().length > 0);
+    filledPax.forEach((input) => markField(input, /^\d+$/.test(input.value)));
+    const paxValid = filledPax.length >= 1 && filledPax.length <= 6;
 
     markField(els.id, idValid);
     markField(els.password, passValid);
@@ -266,7 +282,9 @@
       trainNumber: els.trainNumber.value,
       coach_type: parseInt(els.coachType.value, 10),
       total_coach_types: parseInt(els.totalCoachTypes.value, 10),
-      passenger_order: [...els.paxList.children].map((chip) => parseInt(chip.dataset.value, 10)),
+      passenger_order: els.paxInputs
+        .filter((input) => !input.disabled && input.value.trim().length > 0)
+        .map((input) => parseInt(input.value, 10)),
     };
   }
 
@@ -299,6 +317,5 @@
   /* ----------------------------------------------------------
      Init
      ---------------------------------------------------------- */
-  refreshPaxPositions();
   validateAll();
 })();

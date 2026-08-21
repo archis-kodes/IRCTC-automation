@@ -522,38 +522,32 @@ input.is-invalid { border-color: var(--alert-red); }
 
 .field__note.is-invalid { color: var(--alert-red); }
 
-/* passenger drag list */
+/* passenger priority boxes */
 .pax-list {
-  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   margin: 0;
   padding: 0;
 }
 
-.pax-chip {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  background: #fff;
-  border: 2px dashed var(--brass);
-  border-radius: 999px;
-  padding: 8px 16px 8px 10px;
+.pax-box {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: grab;
-  user-select: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  background: #fff;
+  border: 2px solid var(--parchment-dark);
+  border-radius: 10px;
+  padding: 8px 10px;
+  transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.pax-chip:active { cursor: grabbing; }
-
-.pax-chip__pos {
+.pax-box__pos {
   background: var(--saffron);
   color: #fff;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -562,8 +556,30 @@ input.is-invalid { border-color: var(--alert-red); }
   font-weight: 700;
 }
 
-.pax-chip.is-dragging { opacity: 0.4; }
-.pax-chip.is-over { box-shadow: -3px 0 0 var(--signal-green); }
+.pax-box__input {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  width: 48px;
+  padding: 6px 4px;
+  text-align: center;
+  border-radius: 8px;
+  border: 2px solid var(--parchment-dark);
+  background: #fff;
+  color: var(--charcoal);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pax-box__input:focus {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 3px rgba(255,159,28,0.2);
+}
+
+.pax-box__input.is-valid { border-color: var(--signal-green); }
+.pax-box__input.is-invalid { border-color: var(--alert-red); }
+
+.pax-box.is-locked {
+  display: none;
+}
 
 /* ============================================================
    Departure / download
